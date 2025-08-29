@@ -1,17 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
-import FetchProductById from "../API/ProductDetailAPI";
-import { useParams } from "react-router-dom";
+import { FetchProductById } from "../API/Product.API";
+import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../Components/Navbar";
+import { useCart } from "../Context/CartContext";
+
 
 function ProductDetail() {
   const { id } = useParams();
-
+ const {addToCart} = useCart();
   const { isError, data, isLoading, error } = useQuery({
     queryKey: ["productId", id],
     queryFn: () => FetchProductById(id as string),
     enabled: !!id,
   });
-
+ const navigate = useNavigate();
   if (!id) return <p>Invalid product ID.</p>;
   if (isError) return <p>Error: {(error as Error).message}</p>;
   if (isLoading) return <p>Loading....</p>;
@@ -56,10 +58,17 @@ function ProductDetail() {
             </div>
 
             <div className="flex flex-wrap gap-4 mt-6">
-  <button className="px-8 py-4 bg-indigo-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-indigo-700 hover:shadow-lg transform hover:scale-105 transition duration-300">
+  <button onClick={() => {
+                    
+                      addToCart(data);
+                      alert("Item Added To Cart");
+                    }}
+  className="px-8 py-4 bg-indigo-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-indigo-700 hover:shadow-lg transform hover:scale-105 transition duration-300">
     Add To Cart
   </button>
-  <button className="px-8 py-4 bg-rose-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-rose-700 hover:shadow-lg transform hover:scale-105 transition duration-300">
+  <button 
+   onClick={() => navigate('/buy')}
+  className="px-8 py-4 bg-rose-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-rose-700 hover:shadow-lg transform hover:scale-105 transition duration-300">
     Buy Now
   </button>
 </div>

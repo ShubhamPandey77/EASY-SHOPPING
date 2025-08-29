@@ -14,7 +14,7 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-async function loginApi(data: FormData): Promise<{ token: string }> {
+async function loginApi(data: FormData): Promise<{ accessToken: string }> {
   const res = await axiosInstance.post("/auth/login", data);
   return res.data;
 }
@@ -29,9 +29,10 @@ function LoginUser() {
 
   const mutation = useMutation({
   mutationFn: loginApi,
-  onSuccess: (data: { token: string }) => {
-    setToken(data.token);
+    onSuccess: (data) => {
+    setToken(data.accessToken); // now it's strongly typed
     navigate("/home", { replace: true });
+    console.log("Login response:", data);
   },
   onError: () => {
     alert("Login failed!!");

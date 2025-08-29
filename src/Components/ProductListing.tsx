@@ -1,5 +1,5 @@
 import { useState } from "react";
-import FetchProducts from "../API/ProductAPI";
+import { FetchProducts } from "../API/Product.API";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import Pagination from "./Pagination";
@@ -70,6 +70,7 @@ function ProductListing() {
                 onClick={(e) => {
                       e.stopPropagation(); // prevents navigating to product details when clicking button
                       addToCart(item);
+                        alert("Item Added To Cart")
                     }}
                 className="w-full bg-indigo-600 text-white py-2 rounded-xl font-medium hover:bg-indigo-700 hover:shadow-lg transition duration-300"
               >
