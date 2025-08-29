@@ -3,19 +3,31 @@ import LoginUser from "../Components/LoginUser";
 import Home from "../Pages/Home";
 import AuthProtected from "../Components/AuthProtected";
 import ProductDetail from "../Pages/ProductDetail";
+import Cart from "../Pages/Cart";
 
-const isAuthenticated = Boolean(localStorage.getItem("authToken"));
+// We check for token in a function instead of top-level constant
+function isUserAuthenticated(): boolean {
+  return Boolean(localStorage.getItem("authToken"));
+}
+
 const router = createBrowserRouter([
   { path: "/", element: <LoginUser /> },
   {
-    path: "/Home",
+    path: "/home",
     element: (
-      <AuthProtected isAuthenticated={isAuthenticated}>
+      <AuthProtected isAuthenticated={isUserAuthenticated()}>
         <Home />
       </AuthProtected>
     ),
   },
-   { path: "/products/:id", element: <ProductDetail /> },
+  {
+    path: "/products/:id",
+    element: <ProductDetail />,
+  },
+  {
+    path: "/cart",
+    element: <Cart />,
+  },
 ]);
 
 function Routers(): JSX.Element {

@@ -38,16 +38,16 @@ function Navbar() {
         {/* Icons */}
         <div className="flex items-center space-x-6 text-lg font-medium">
           <div
-            className="cursor-pointer text-white hover:text-yellow-300 flex items-center gap-2 transition"
-            onClick={() => navigate("/Home")}
+            className="mr-6  cursor-pointer text-white hover:text-yellow-300 flex items-center gap-2 transition"
+            onClick={() => navigate("/home")}
           >
-            <FontAwesomeIcon icon={faHome} /> <span>Home</span>
+            <FontAwesomeIcon icon={faHome} /> <span>Home {" "} </span>
           </div>
           <div
             className="cursor-pointer text-white hover:text-yellow-300 flex items-center gap-2 transition"
-            onClick={() => alert("Oops!! No Items in Cart!")}
+            onClick={() =>navigate('/cart')}
           >
-            <FontAwesomeIcon icon={faCartShopping} /> <span>Cart</span>
+            <FontAwesomeIcon icon={faCartShopping} /> <span>Cart </span>
           </div>
         </div>
       </div>
