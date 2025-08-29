@@ -5,6 +5,7 @@ import {
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import ProductListing from "./ProductListing";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -14,20 +15,8 @@ function Navbar() {
       <div className="flex justify-between items-center w-full px-8">
         {/* Search Box */}
         <div className="flex items-center space-x-2">
-          <div className="flex items-center bg-white rounded-full px-3 py-1 shadow-sm">
-            <FontAwesomeIcon
-              icon={faMagnifyingGlass}
-              className="text-gray-500 mr-2"
-            />
-            <input
-              type="text"
-              placeholder="Search..."
-              className="px-1 py-1 text-sm w-40 focus:outline-none text-gray-700"
-            />
-          </div>
-          <button className="w-[100px] px-4 py-1 rounded-full bg-white/20 text-white font-medium hover:bg-white/30 transition">
-            Search
-          </button>
+          
+         
         </div>
 
         {/* Store Name */}

@@ -1,19 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
-import { FetchProductById } from "../API/Product.API";
+import { fetchProductById } from "../../api/product-api";
 import { useNavigate, useParams } from "react-router-dom";
-import Navbar from "../Components/Navbar";
-import { useCart } from "../Context/CartContext";
-
+import Navbar from "../../components/home/Navbar";
+import useCart from "../../components/cart/UseCart";
 
 function ProductDetail() {
   const { id } = useParams();
- const {addToCart} = useCart();
+  const { addToCart } = useCart();
   const { isError, data, isLoading, error } = useQuery({
     queryKey: ["productId", id],
-    queryFn: () => FetchProductById(id as string),
+    queryFn: () => fetchProductById(id as string),
     enabled: !!id,
   });
- const navigate = useNavigate();
+  const navigate = useNavigate();
   if (!id) return <p>Invalid product ID.</p>;
   if (isError) return <p>Error: {(error as Error).message}</p>;
   if (isLoading) return <p>Loading....</p>;
@@ -41,7 +40,7 @@ function ProductDetail() {
                 <strong>Category:</strong> {data.category}
               </p>
               <p>
-                <strong>Brand:</strong> {data.brand}
+                <strong>Reviewer Name :</strong> {data.reviewerName}
               </p>
               <p>
                 <strong>Price:</strong> ${data.price}
@@ -58,26 +57,28 @@ function ProductDetail() {
             </div>
 
             <div className="flex flex-wrap gap-4 mt-6">
-  <button onClick={() => {
-                    
-                      addToCart(data);
-                      alert("Item Added To Cart");
-                    }}
-  className="px-8 py-4 bg-indigo-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-indigo-700 hover:shadow-lg transform hover:scale-105 transition duration-300">
-    Add To Cart
-  </button>
-  <button 
-   onClick={() => navigate('/buy')}
-  className="px-8 py-4 bg-rose-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-rose-700 hover:shadow-lg transform hover:scale-105 transition duration-300">
-    Buy Now
-  </button>
-</div>
+              <button
+                onClick={() => {
+                  addToCart(data);
+                  alert("Item Added To Cart");
+                }}
+                className="px-8 py-4 bg-indigo-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-indigo-700 hover:shadow-lg transform hover:scale-105 transition duration-300"
+              >
+                Add To Cart
+              </button>
+              <button
+                onClick={() => navigate("/buy")}
+                className="px-8 py-4 bg-rose-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-rose-700 hover:shadow-lg transform hover:scale-105 transition duration-300"
+              >
+                Buy Now
+              </button>
+            </div>
           </div>
         </div>
 
         <div className="mt-10 bg-white rounded-xl shadow-lg p-6 space-y-4 animate-fade-in">
           <h4 className="text-2xl font-semibold text-gray-800">
-            <strong>Brand Name:</strong> {data.brand}
+            <strong>Brand Name:</strong> {data.reviewerName}
           </h4>
           <h4 className="text-2xl text-gray-700">
             <strong>SKU:</strong> {data.sku}

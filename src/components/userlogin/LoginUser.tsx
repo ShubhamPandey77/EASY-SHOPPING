@@ -3,8 +3,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import * as z from "zod";
 import { useMutation } from "@tanstack/react-query";
-import { setToken } from "../utils/auth";
-import axiosInstance from "../utils/axiosInstance";
+import { setToken } from "../../utils/auth";
+import axiosInstance from "../../utils/axiosInstance";
 
 // Schema
 const formSchema = z.object({

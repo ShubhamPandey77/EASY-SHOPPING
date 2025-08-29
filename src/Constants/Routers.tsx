@@ -1,10 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import LoginUser from "../Components/LoginUser";
-import Home from "../Pages/Home.Page";
-import AuthProtected from "../Components/AuthProtected";
-import ProductDetail from "../Pages/ProductDetail.Page";
-import Cart from "../Pages/Cart.Page";
-import BuyNow from "../Pages/BuyNow.Page";
+import LoginUser from "../components/userlogin/LoginUser";
+import Home from "../pages/Home/Home.page";
+import AuthProtected from "../components/userlogin/AuthProtected";
+import ProductDetail from "../pages/Product/ProductDetail.page";
+import Cart from "../pages/Cart/Cart.page";
+import BuyNow from "../pages/Buy/Buy.page";
+import type { JSX } from "react";
 
 // We check for token in a function instead of top-level constant
 function isUserAuthenticated(): boolean {

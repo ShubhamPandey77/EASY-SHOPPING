@@ -1,6 +1,7 @@
-import { useState, createContext, useContext, ReactNode } from "react";
+import { useState, createContext, type ReactNode} from "react";
 
-// Define types
+
+
 export interface Product {
   id: number | string;
   title: string; 
@@ -20,24 +21,13 @@ interface CartContextType {
   removeFromCart: (id: number | string) => void;
   total: number;
 }
-
-
 const CartContext = createContext<CartContextType | undefined>(undefined);
-
-// defining Hook here for easier purpose
-export function useCart() {
-  const context = useContext(CartContext);
-  if (!context) {
-    throw new Error("useCart must be used within a CartProvider");
-  }
-  return context;
-}
 
 
 interface CartProviderProps {
   children: ReactNode;
 }
-//In we are making a empty array
+//In this we are making a empty array
 export function CartProvider({ children }: CartProviderProps) {
   const [cart, setCart] = useState<CartItem[]>([]);
 
@@ -72,7 +62,7 @@ export function CartProvider({ children }: CartProviderProps) {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
  
-  // Here by using the reduce function which is mainly used in calculations we will get the total value of the cart
+  // Here by using the reduce function which is mainly used in calculations we will get the total value of the cart..
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
 return (
@@ -83,3 +73,5 @@ return (
   </CartContext.Provider>
 );
 }
+
+export {CartContext}

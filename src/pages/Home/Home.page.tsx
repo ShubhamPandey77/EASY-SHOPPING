@@ -1,6 +1,6 @@
 
-import Navbar from "../Components/Navbar";
-import ProductListing from "../Components/ProductListing";
+import Navbar from "../../components/home/Navbar";
+import ProductListing from "../../components/home/ProductListing";
 
 function Home() {
   return (
