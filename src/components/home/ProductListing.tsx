@@ -4,6 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import useCart from "../cart/UseCart";
 import toast, { Toaster } from "react-hot-toast";
+import { motion } from "motion/react";
+import type { Variants } from "motion/react";
 
 interface Product {
   id: number;
@@ -14,24 +16,29 @@ interface Product {
 }
 
 function ProductListing() {
+
+  
   const { addToCart } = useCart();
   const [page, setPage] = useState(1);
-  const [search, setSearch] = useState(""); 
-  const [debouncedSearch, setDebouncedSearch] = useState(""); // new state
+  const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const limit = 10;
 
   const navigate = useNavigate();
 
-  
+  // Debounce search
   useEffect(() => {
     const handler = setTimeout(() => setDebouncedSearch(search), 300);
     return () => clearTimeout(handler);
   }, [search]);
 
-  const { isError, error, isLoading, data } = useQuery<{ products: Product[]; total: number }, Error>({
-    queryKey: ["products", page, limit, debouncedSearch], 
+  const { isError, error, isLoading, data } = useQuery<{
+    products: Product[];
+    total: number;
+  }, Error>({
+    queryKey: ["products", page, limit, debouncedSearch],
     queryFn: () => fetchProductByLimit(page, limit, debouncedSearch),
-    keepPreviousData : true,
+    keepPreviousData: true,
   });
 
   if (isError) return <p>Error: {error.message}</p>;
@@ -40,30 +47,32 @@ function ProductListing() {
   return (
     <>
       <Toaster />
-      <div className="p-4">
-        
-        <div className="mb-8 flex gap-3 p-16">
-          <input
-            type="text"
-            placeholder="Search products..."
-            value={search}
-            onChange={(e) => {
-              setPage(1); 
-              setSearch(e.target.value);
-            }}
-            className="border rounded-lg px-3 py-2 w-full"
-          />
-        </div>
-      </div>
+    <div className="p-12 mt-10 mb-32 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 flex justify-center items-center rounded-2xl shadow-lg">
+  <input
+    type="text"
+    placeholder="Search products..."
+    value={search}
+    onChange={(e) => {
+      setPage(1);
+      setSearch(e.target.value);
+    }}
+    className="border-none rounded-xl px-8 py-5 w-[500px] text-2xl font-extrabold bg-white text-gray-900 shadow-lg focus:outline-none focus:ring-4 focus:ring-pink-300"
+  />
+</div>
+
 
       {/* Product Grid */}
       <div className="grid gap-6 px-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {data.products.length ? (
-          data.products.map((item) => (
-            <div
+          data.products.map((item, i) => (
+            <motion.div
               key={item.id}
               onClick={() => navigate(`/products/${item.id}`)}
-              className="bg-white rounded-2xl shadow-md overflow-hidden cursor-pointer transform transition hover:scale-105 hover:shadow-xl"
+              className="bg-white rounded-2xl shadow-md overflow-hidden cursor-pointer"
+              initial="offscreen"
+              whileInView="onscreen"
+              viewport={{ amount: 0.3 }}
+              variants={cardVariants}
             >
               <img
                 src={item.thumbnail}
@@ -95,7 +104,7 @@ function ProductListing() {
                   ➕ Add To Cart
                 </button>
               </div>
-            </div>
+            </motion.div>
           ))
         ) : (
           <p>No products found</p>
@@ -127,3 +136,21 @@ function ProductListing() {
 }
 
 export default ProductListing;
+
+// Animation Variants
+const cardVariants: Variants = {
+  offscreen: {
+    y: 100,
+    opacity: 0,
+  },
+  onscreen: {
+    y: 0,
+    opacity: 1,
+    rotate: -2,
+    transition: {
+      type: "spring",
+      bounce: 0.3,
+      duration: 0.8,
+    },
+  },
+};
