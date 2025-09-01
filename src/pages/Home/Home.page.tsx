@@ -3,6 +3,7 @@ import Navbar from "../../components/home/Navbar";
 import ProductListing from "../../components/home/ProductListing";
 import { motion } from "motion/react"
 
+//TODO: remove px and use rems
 function Home() {
   return (
     <div>
