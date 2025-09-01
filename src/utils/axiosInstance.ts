@@ -1,8 +1,9 @@
     import axios from "axios";
     import { getToken } from "./auth";
+    
 
     const axiosInstance = axios.create({
-    baseURL: "https://dummyjson.com",
+    baseURL: import.meta.env.VITE_BASE_API,
     headers: { "Content-Type": "application/json" },
     });
     
@@ -16,5 +17,4 @@
     });
 
     export default axiosInstance;
-
 

@@ -9,7 +9,7 @@ interface CartItemProps {
 
 function CartItem({ item, onIncrease, onDecrease, onDelete }: CartItemProps) {
   return (
-    <div style={{ border: "1px solid #ccc", margin: "8px", padding: "8px" }}>
+    <div className="border border-gray-300 m-2 p-2">
       <h4>{item.title}</h4>
       <p>Price: ₹{item.price}</p>
       <p>
@@ -17,7 +17,7 @@ function CartItem({ item, onIncrease, onDecrease, onDelete }: CartItemProps) {
         <button onClick={onDecrease} disabled={item.quantity <= 1}>
           -
         </button>
-        <span style={{ margin: "0 8px" }}>{item.quantity}</span>
+        <span className="mx-2">{item.quantity}</span>
         <button onClick={onIncrease}>+</button>
       </p>
       <button onClick={onDelete} style={{ color: "red" }}>

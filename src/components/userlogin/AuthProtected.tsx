@@ -1,18 +1,13 @@
 import { Navigate, Outlet } from "react-router-dom";
+import { isAuthenticated } from "../../utils/auth";
+import { ROUTE } from "../../constant/route.constants";
 
-
-type ProtectedRouteProps = {
-  isAuthenticated: boolean;
-  children: JSX.Element;
-};
-
-function ProtectedRoute({ isAuthenticated }: ProtectedRouteProps) {
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+function AuthProtected() {
+  if (!isAuthenticated()) {
+    return <Navigate to={ROUTE.Root} replace />; 
   }
-
-  return  <Outlet/>;
- 
+  return <Outlet />;
 }
 
-export default ProtectedRoute;
+
+export default AuthProtected;
