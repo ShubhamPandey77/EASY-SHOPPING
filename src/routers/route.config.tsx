@@ -8,7 +8,7 @@ import BuyNow from '../pages/Buy/Buy.page';
 import type { JSX } from 'react';
 import { isAuthenticated } from '../utils/auth';
 import { ROUTE } from '../constant/route.constants';
-
+import { PublicRoute } from '../components/userlogin/AuthProtected';
 
 
 // TODO: remove this function and use which is inside utils -> Done
@@ -17,9 +17,10 @@ const router = createBrowserRouter([
   {
     path: ROUTE.Root,
     element: (
-    
+      <PublicRoute>
         <LoginUser />
-         ),
+      </PublicRoute>
+    ),
   },
   {
     element: <AuthProtected />, // no comma issue here

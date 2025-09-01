@@ -28,8 +28,7 @@ function ProductListing() {
 
   const { isError, error, isLoading, data, refetch } = useQuery<
     { products: Product[]; total: number },
-    Error
-  >({
+    Error>({
     queryKey: ["products", page, limit, querySearch],
     queryFn: () => fetchProductByLimit(page, limit, querySearch),
     keepPreviousData: true,

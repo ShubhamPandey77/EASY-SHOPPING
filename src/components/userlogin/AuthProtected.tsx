@@ -8,6 +8,12 @@ function AuthProtected() {
   }
   return <Outlet />;
 }
-
+export function PublicRoute({ children }: { children: React.ReactNode }){
+ 
+    if (isAuthenticated()) {
+    return <Navigate to={ROUTE.Home} replace />;
+  }
+  return <>{children}</>;
+}
 
 export default AuthProtected;

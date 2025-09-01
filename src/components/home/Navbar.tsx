@@ -5,20 +5,29 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../constant/route.constants";
+import { clearToken } from "../../utils/auth";
 
 
 function Navbar() {
   const navigate = useNavigate();
+  function handleLogout(){
+    clearToken();
+    navigate (ROUTE.Root);
+  }
 
   return (
     <div className="bg-gradient-to-br from-indigo-900 via-indigo-700 to-indigo-500 h-16 md:h-18 flex items-center shadow-lg">
   <div className="flex justify-between items-center w-full px-6 md:px-12">
     
-  
+   <button className="rounded-2xl bg-gray-400 w-3rem "
+   onClick={handleLogout}
+    >
+    Log Out
+    </button>
     <div className="flex items-center space-x-2">
     
     </div>
-
+    
     <div className="font-extrabold text-2xl md:text-3xl lg:text-4xl text-white tracking-wide drop-shadow-lg cursor-pointer hover:scale-105 transform transition duration-300">
       STORE
     </div>
