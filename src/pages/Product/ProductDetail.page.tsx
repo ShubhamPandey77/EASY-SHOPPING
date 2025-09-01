@@ -3,6 +3,7 @@ import { fetchProductById } from "../../api/product-api";
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../../components/home/Navbar";
 import useCart from "../../components/cart/UseCart";
+import toast, { Toaster } from "react-hot-toast";
 
 function ProductDetail() {
   const { id } = useParams();
@@ -23,6 +24,7 @@ function ProductDetail() {
 
   return (
     <>
+     <Toaster />
       <Navbar />
       <div className="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen p-6 animate-fade-in">
         <div className="flex flex-col md:flex-row gap-10 bg-white rounded-xl shadow-lg p-6 transition-all duration-500">
@@ -58,10 +60,11 @@ function ProductDetail() {
 
             <div className="flex flex-wrap gap-4 mt-6">
               <button
-                onClick={() => {
-                  addToCart(data);
-                  alert("Item Added To Cart");
-                }}
+                   onClick={(e) => {
+                    e.stopPropagation();
+                    addToCart(data);
+                    toast("Item Successfully Added To Cart ✅");
+                  }}
                 className="px-8 py-4 bg-indigo-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-indigo-700 hover:shadow-lg transform hover:scale-105 transition duration-300"
               >
                 Add To Cart

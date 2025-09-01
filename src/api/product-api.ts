@@ -16,7 +16,7 @@ export async function fetchProductByLimit(page: number, limit: number, search: s
   if (search) {
     url = `/products/search?q=${encodeURIComponent(search)}&limit=${limit}&skip=${skip}&select=thumbnail,title,price`;
   } else {
-    url = `/products?limit=${limit}&skip=${skip}&select=thumbnail,title,price`;
+    url = `/products?limit=${limit}&skip=${skip}&select=thumbnail,title,price&sortBy=title&order=asc`;
   }
 
   const res = await axiosInstance.get(url);
