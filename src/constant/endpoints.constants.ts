@@ -10,6 +10,6 @@ export const Api_Endpoints = {
     `${Api_v1}/products/search?q=${encodeURIComponent(
       search
     )}&limit=${limit}&skip=${skip}&select=thumbnail,title,price`,
-  paging: (limit: number, skip: number) =>
-    `${Api_v1}/products?limit=${limit}&skip=${skip}&select=thumbnail,title,price&sortBy=title&order=asc`,
+  paging: (limit: number, skip: number, order: "asc" | "desc") =>
+    `${Api_v1}/products?limit=${limit}&skip=${skip}&select=thumbnail,title,price&sortBy=title&order=${order}`,
 };

@@ -11,7 +11,8 @@ export async function fetchProductById(id: string | number) {
 export async function fetchProductByLimit(
   page: number,
   limit: number = DEFAULT_LIMIT,
-  search: string = ""
+  search: string = "",
+  order: string
 ) {
   const skip = (page - 1) * limit;
   let url: string;
@@ -19,7 +20,7 @@ export async function fetchProductByLimit(
   if (search) {
     url = Api_Endpoints.searching(limit, skip, search);
   } else {
-    url = Api_Endpoints.paging(limit, skip);
+    url = Api_Endpoints.paging(limit, skip, order);
   }
 
   const res = await axiosInstance.get(url);

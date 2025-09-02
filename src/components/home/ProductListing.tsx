@@ -8,6 +8,7 @@ import { motion } from "motion/react";
 import type { Variants } from "motion/react";
 import { ROUTE } from "../../constant/route.constants";
 
+
 interface Product {
   id: number;
   title: string;
@@ -22,17 +23,18 @@ function ProductListing() {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [querySearch, setQuerySearch] = useState("");
+  const [order, setOrder] = useState("asc");
   const limit = 10;
-
+  
   const navigate = useNavigate();
 
   const { isError, error, isLoading, data, refetch } = useQuery<
     { products: Product[]; total: number },
     Error>({
-    queryKey: ["products", page, limit, querySearch],
-    queryFn: () => fetchProductByLimit(page, limit, querySearch),
-    keepPreviousData: true,
-  });
+      queryKey: ["products", page, limit, querySearch, order],
+      queryFn: () => fetchProductByLimit(page, limit, querySearch, order),
+      keepPreviousData: true,
+    });
 
   if (isError) return <p>Error: {error.message}</p>;
   if (isLoading || !data) return <p>Loading...</p>;
@@ -47,7 +49,11 @@ function ProductListing() {
           type="text"
           placeholder="Search products..."
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => {
+            setSearch(e.target.value)
+            setPage(1);
+            refetch();
+          }}
           className="border-none rounded-xl px-8 py-5 w-64 text-xl font-semibold bg-white text-gray-900 shadow-lg focus:outline-none focus:ring-4 focus:ring-pink-300"
         />
         <button
@@ -60,12 +66,21 @@ function ProductListing() {
         >
           🔍 Search
         </button>
+        <label htmlFor="dropdownId">Ordered By</label>
+        <select name="dropdownName"
+          id="dropdownId"
+          value={order}
+          onChange={(e) => setOrder(e.target.value as "asc" | "desc")}
+        >
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
+        </select>
       </div>
 
-      {/* Product Grid */}
+
       <div className="grid gap-6 px-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {data?.products?.length ? (
-          data.products.map((item) => (
+          data.products.map((item: any) => (
             <motion.div
               key={item.id}
               onClick={() => navigate(ROUTE.ProdDetail(item.id))}
