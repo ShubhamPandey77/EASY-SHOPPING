@@ -1,12 +1,12 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate} from "react-router-dom";
 import { isAuthenticated } from "../../utils/auth";
 import { ROUTE } from "../../constant/route.constants";
 
-function AuthProtected() {
+function AuthProtected({ children }: { children: React.ReactNode }) {
   if (!isAuthenticated()) {
     return <Navigate to={ROUTE.Root} replace />; 
   }
-  return <Outlet />;
+  return <>{children}</>;
 }
 export function PublicRoute({ children }: { children: React.ReactNode }){
  

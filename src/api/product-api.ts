@@ -1,10 +1,24 @@
+import { DEFAULT_LIMIT } from "../constant/values.contants";
 import axiosInstance from "../utils/axiosInstance";
-import { Api_Endpoints } from "../constant/endpoints.constants";
+import { API_ENDPOINTS } from "../constant/endpoints.constants";
 
-const DEFAULT_LIMIT = 10;
+export interface Product {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  thumbnail: string;
+}
 
-export async function fetchProductById(id: string | number) {
-  const res = await axiosInstance.get(Api_Endpoints.productId(id));
+export interface ProductResponse {
+  products: Product[];
+  total: number;
+}
+
+export async function fetchProductById(
+  id: string | number
+): Promise<Product> {
+  const res = await axiosInstance.get<Product>(API_ENDPOINTS.productId(id));
   return res.data;
 }
 
@@ -12,26 +26,28 @@ export async function fetchProductByLimit(
   page: number,
   limit: number = DEFAULT_LIMIT,
   search: string = "",
-  order: string
-) {
+  order: "asc" | "desc" = "asc",
+  sortBy: "title" | "price" | "rating" | "stock"  = "title" 
+): Promise<ProductResponse> {
   const skip = (page - 1) * limit;
-  let url: string;
 
-  if (search) {
-    url = Api_Endpoints.searching(limit, skip, search);
-  } else {
-    url = Api_Endpoints.paging(limit, skip, order);
-  }
+  const params = search
+    ? {
+        q: search,
+        limit,
+        skip,
+        select: "thumbnail,title,price",
+      }
+    : {
+        limit,
+        skip,
+        select: "thumbnail,title,price",
+        sortBy, 
+        order,
+      };
 
-  const res = await axiosInstance.get(url);
-  return res.data as {
-    products: {
-      id: number;
-      title: string;
-      description: string;
-      price: number;
-      thumbnail: string;
-    }[];
-    total: number;
-  };
+  const url = search ? API_ENDPOINTS.searching : API_ENDPOINTS.paging;
+
+  const res = await axiosInstance.get<ProductResponse>(url, { params });
+  return res.data;
 }
