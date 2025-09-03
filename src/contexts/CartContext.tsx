@@ -1,7 +1,4 @@
 import { useState, createContext, type ReactNode} from "react";
-
-
-
 export interface Product {
   id: number | string;
   title: string; 

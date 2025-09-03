@@ -2,26 +2,38 @@ import { DEFAULT_LIMIT } from "../constant/values.contants";
 import axiosInstance from "../utils/axiosInstance";
 import { API_ENDPOINTS } from "../constant/endpoints.constants";
 
+export interface Review {
+  reviewerName?: string;
+  rating?: number;
+  comment?: string;
+  date?: string;
+}
+
+export interface Dimensions {
+  width?: number;
+  height?: number;
+  depth?: number;
+}
+
 export interface Product {
   id: number;
   title: string;
   description: string;
   price: number;
   thumbnail: string;
+  images?: string[]; // you used productImages[]
   discountPercentage?: number;
   rating?: number;
   stock?: number;
   brand?: string;
   category?: string;
-  reviewerName?: string;
   sku?: string;
   weight?: number;
-  dimensions?: {
-    width?: number;
-    height?: number;
-    depth?: number;
-  };
+  length?: number;
+  dimensions?: Dimensions;
   warrantyInformation?: string;
+  shippingInformation?: string;
+  reviews?: Review[]; // previously was string | number
 }
 
 export interface ProductResponse {
@@ -50,18 +62,19 @@ export async function fetchProductByLimit(
         q: search,
         limit,
         skip,
-        select: "thumbnail,title,price",
+        select: "thumbnail,title,price,stock",
       }
     : {
         limit,
         skip,
-        select: "thumbnail,title,price",
+        select: "thumbnail,title,price,stock",
         sortBy, 
         order,
+        
       };
 
   const url = search ? API_ENDPOINTS.searching : API_ENDPOINTS.paging;
 
-  const res = await axiosInstance.get<ProductResponse>(url, { params });
+  const res = await axiosInstance.get<ProductResponse>(url, { params});
   return res.data;
 }

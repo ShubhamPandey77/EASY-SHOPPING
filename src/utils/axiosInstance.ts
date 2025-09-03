@@ -3,7 +3,7 @@
     
 
     const axiosInstance = axios.create({
-    baseURL: import.meta.env.VITE_BASE_API,
+    baseURL: import.meta.env.VITE_BASE_API,   // .env file se url export krne ke liye import.meta.env.url-name likhte h
     headers: { "Content-Type": "application/json" },
     });
     
