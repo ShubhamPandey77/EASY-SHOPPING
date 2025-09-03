@@ -1,5 +1,6 @@
 import { type CartItem  } from "../../contexts/CartContext";
 
+
 interface CartItemProps {
   item: CartItem ;
   onIncrease: () => void;
@@ -9,7 +10,9 @@ interface CartItemProps {
 
 function CartItem({ item, onIncrease, onDecrease, onDelete }: CartItemProps) {
   return (
-    <div className="border border-gray-300 m-2 p-2">
+    <>
+    
+        <div className="border border-gray-300 m-2 p-2">
       <h4>{item.title}</h4>
       <p>Price: ₹{item.price}</p>
       <p>
@@ -25,6 +28,8 @@ function CartItem({ item, onIncrease, onDecrease, onDelete }: CartItemProps) {
       </button>
       <p>Subtotal: ₹{item.quantity * item.price}</p>
     </div>
+    </>
+
   );
 }
 

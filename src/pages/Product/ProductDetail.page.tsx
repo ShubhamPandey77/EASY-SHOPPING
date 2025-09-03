@@ -8,30 +8,8 @@ import { ROUTE } from "../../constant/route.constants";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-export interface Product {
-  id: string;
-  title: string;
-  description: string;
-  price?: number;
-  discountPercentage?: number;
-  rating: number;
-  stock: number;
-  brand: string;
-  category ?: string;
-  thumbnail: string;
-  reviewerName?: string;
-  sku?: string;
-  weight?: number;
-  dimensions: {
-    width: number;
-    height: number;
-    depth: number;
-  };
-  warrantyInformation?: string;
-}
-
 function ProductDetail() {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams();
   const { addToCart } = useCart();
   const navigate = useNavigate();
 

@@ -22,7 +22,7 @@ function Navbar() {
   
     <header className="bg-gradient-to-r from-black via-gray-900 to-black   shadow-lg">
       <div className="flex justify-between items-center h-12 md:h-22 px-6 md:px-12 mb-4">
-        {/* Left: Logout */}
+      
         <Button
           variant="secondary"
           className="rounded-xl bg-gray-200 text-gray-900 hover:bg-gray-300"
@@ -31,7 +31,7 @@ function Navbar() {
           Log Out
         </Button>
 
-        {/* Center: Logo */}
+ 
         <div
           className="font-extrabold text-2xl md:text-3xl lg:text-4xl text-white tracking-wide drop-shadow-lg cursor-pointer hover:scale-105 transform transition duration-300"
           onClick={() => navigate(ROUTE.Home)}
@@ -39,8 +39,7 @@ function Navbar() {
           Easy Shopping.Com
         </div>
 
-        {/* Right: Nav Links */}
-        <nav className="flex items-center space-x-4 md:space-x-6 text-white font-medium">
+         <nav className="flex items-center space-x-4 md:space-x-6 text-white font-medium">
           <Button
             variant="ghost"
             className="flex items-center gap-2 text-white hover:text-yellow-300 hover:bg-transparent"

@@ -1,20 +1,25 @@
 import useCart from "../../hooks/useCart";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import Navbar from "@/components/home/Navbar";
 
 function Cart() {
   const { cart, total, updateQuantity, removeFromCart } = useCart();
 
   if (cart.length === 0)
     return (
-      <div className="flex items-center justify-center h-[100vh]">
+  <><Navbar/>
+     <div className="flex items-center justify-center h-[100vh]">
         <p className="text-center text-gray-700 text-lg font-medium">
           🛒 Your Cart Is Currently Empty!!
         </p>
-      </div>
+      </div></>
+   
     );
 
   return (
+    <>
+    <Navbar/>
     <div className="flex items-center justify-center min-h-[100vh]">
       <Card className="w-[60rem] p-[2rem] bg-white text-black shadow-md rounded-2xl">
         <CardContent>
@@ -73,6 +78,8 @@ function Cart() {
         </CardContent>
       </Card>
     </div>
+    </>
+    
   );
 }
 

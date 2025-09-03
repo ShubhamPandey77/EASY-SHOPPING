@@ -1,3 +1,5 @@
+"use client";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
@@ -31,10 +33,10 @@ export default function HeroBanner() {
     <section className="w-full max-w-[90rem] mx-auto mb-10">
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
-        pagination={{ clickable: true }}
         navigation
+        pagination={{ clickable: true }}
         autoplay={{ delay: 4000, disableOnInteraction: false }}
-        loop={true}
+        loop
         className="w-full h-[25rem] md:h-[30rem] lg:h-[35rem] rounded-2xl shadow-xl"
       >
         {slides.map((slide) => (
@@ -51,7 +53,9 @@ export default function HeroBanner() {
                 <p className="text-base md:text-lg lg:text-xl text-gray-200 mb-6 max-w-2xl">
                   {slide.subtitle}
                 </p>
-            
+                <button className="bg-white text-black font-medium px-6 py-2 rounded-md hover:bg-gray-200 transition">
+                  Shop Now
+                </button>
               </div>
             </div>
           </SwiperSlide>

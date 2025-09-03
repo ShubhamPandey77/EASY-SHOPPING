@@ -8,6 +8,20 @@ export interface Product {
   description: string;
   price: number;
   thumbnail: string;
+  discountPercentage?: number;
+  rating?: number;
+  stock?: number;
+  brand?: string;
+  category?: string;
+  reviewerName?: string;
+  sku?: string;
+  weight?: number;
+  dimensions?: {
+    width?: number;
+    height?: number;
+    depth?: number;
+  };
+  warrantyInformation?: string;
 }
 
 export interface ProductResponse {
