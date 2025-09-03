@@ -27,7 +27,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 interface CartProviderProps {
   children: ReactNode;
 }
-//In this we are making a empty array
+//In this we are making a empty array where we will store
 export function CartProvider({ children }: CartProviderProps) {
   const [cart, setCart] = useState<CartItem[]>([]);
 

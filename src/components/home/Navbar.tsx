@@ -5,7 +5,7 @@ import { faHome, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../constant/route.constants";
 import { clearToken } from "../../utils/auth";
-import toast,{Toaster} from "react-hot-toast";
+import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 
 function Navbar() {
@@ -19,7 +19,7 @@ function Navbar() {
 
   return (
    <>
-   <Toaster/>
+  
     <header className="bg-gradient-to-r from-black via-gray-900 to-black   shadow-lg">
       <div className="flex justify-between items-center h-12 md:h-22 px-6 md:px-12 mb-4">
         {/* Left: Logout */}

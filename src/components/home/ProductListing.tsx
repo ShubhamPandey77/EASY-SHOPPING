@@ -3,7 +3,7 @@ import { fetchProductByLimit } from "../../api/product-api";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import useCart from "../../hooks/useCart";
-import toast,{Toaster} from "react-hot-toast";
+import toast from "react-hot-toast";
 import { ROUTE } from "../../constant/route.constants";
 import CustomPagination from "./Pagination";
 import HeroBanner from "./Hero.Banner";
@@ -42,8 +42,7 @@ function ProductListing() {
 
   return (
     <div className="flex flex-col">
-      <Toaster/>
- 
+    
       <HeroBanner />
 
  
@@ -75,7 +74,7 @@ function ProductListing() {
             </Button>
           </div>
 
-          {/* Order By Dropdown */}
+      
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
@@ -134,7 +133,7 @@ function ProductListing() {
           </DropdownMenu>
         </aside>
 
-        {/* Products Grid */}
+       
         <main className="flex-1 p-10">
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 place-items-center">
             {data?.products?.length ? (
@@ -177,7 +176,7 @@ function ProductListing() {
             )}
           </div>
 
-          {/* Pagination */}
+         
           <div className="mt-10 flex justify-center">
             <CustomPagination
               page={page}

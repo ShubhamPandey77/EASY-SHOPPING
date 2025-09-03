@@ -22,7 +22,7 @@ function CustomPagination({ page, setPage, data, limit }: CustomPaginationProps)
     <div className="flex justify-center mt-6">
       <Pagination>
         <PaginationContent>
-          {/* Previous Button */}
+         
           <PaginationItem>
             <PaginationPrevious
               href="#"
@@ -34,7 +34,7 @@ function CustomPagination({ page, setPage, data, limit }: CustomPaginationProps)
             />
           </PaginationItem>
 
-          {/* First Page */}
+        
           {page > 2 && (
             <PaginationItem>
               <PaginationLink
@@ -49,14 +49,14 @@ function CustomPagination({ page, setPage, data, limit }: CustomPaginationProps)
             </PaginationItem>
           )}
 
-          {/* Ellipsis (before current page) */}
+      
           {page > 3 && (
             <PaginationItem>
               <PaginationEllipsis />
             </PaginationItem>
           )}
 
-          {/* Previous Page */}
+       
           {page > 1 && (
             <PaginationItem>
               <PaginationLink
@@ -71,14 +71,14 @@ function CustomPagination({ page, setPage, data, limit }: CustomPaginationProps)
             </PaginationItem>
           )}
 
-          {/* Current Page */}
+        
           <PaginationItem>
             <PaginationLink href="#" isActive>
               {page}
             </PaginationLink>
           </PaginationItem>
 
-          {/* Next Page */}
+  
           {page < totalPages && (
             <PaginationItem>
               <PaginationLink
@@ -93,14 +93,14 @@ function CustomPagination({ page, setPage, data, limit }: CustomPaginationProps)
             </PaginationItem>
           )}
 
-          {/* Ellipsis (after current page) */}
+          
           {page < totalPages - 2 && (
             <PaginationItem>
               <PaginationEllipsis />
             </PaginationItem>
           )}
 
-          {/* Last Page */}
+       
           {page < totalPages - 1 && (
             <PaginationItem>
               <PaginationLink
@@ -115,7 +115,7 @@ function CustomPagination({ page, setPage, data, limit }: CustomPaginationProps)
             </PaginationItem>
           )}
 
-          {/* Next Button */}
+        
           <PaginationItem>
             <PaginationNext
               href="#"
