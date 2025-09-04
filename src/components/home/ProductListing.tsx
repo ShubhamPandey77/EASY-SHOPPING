@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { fetchProductByLimit } from "../../api/product-api";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +21,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Search, ChevronDown, Filter, Star, ShoppingCart, Eye, Package, TrendingUp } from "lucide-react";
+import { Search, ChevronDown, Filter, Star, ShoppingCart, Eye, Package, TrendingUp, X } from "lucide-react";
 
 function ProductListing() {
   const { addToCart } = useCart();
@@ -34,6 +34,18 @@ function ProductListing() {
   >("title");
 
   const navigate = useNavigate();
+
+  // Debounced search effect
+  useEffect(() => {
+    const debounceTimer = setTimeout(() => {
+      if (search !== querySearch) {
+        setQuerySearch(search);
+        setPage(1); // Reset to first page when searching
+      }
+    }, 1500); // 1.5 second delay
+
+    return () => clearTimeout(debounceTimer);
+  }, [search, querySearch]);
 
   const { isError, error, isLoading, data } = useQuery({
     queryKey: ["products", page, limit, querySearch, order, sortBy],
@@ -51,6 +63,13 @@ function ProductListing() {
   const getCurrentSortLabel = () => {
     const field = sortOptions.find(option => option.field === sortBy);
     return `${field?.label} (${order === "asc" ? "Low to High" : "High to Low"})`;
+  };
+
+  // Clear search function
+  const clearSearch = () => {
+    setSearch("");
+    setQuerySearch("");
+    setPage(1);
   };
 
   // Enhanced Star Rating Component
@@ -161,7 +180,6 @@ function ProductListing() {
         <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center justify-between">
           <div className="flex items-center gap-3 flex-1 max-w-md">
             <Skeleton className="h-12 flex-1 rounded-xl" />
-            <Skeleton className="h-12 w-24 rounded-xl" />
           </div>
           <div className="flex items-center gap-3">
             <Skeleton className="h-5 w-20" />
@@ -216,31 +234,38 @@ function ProductListing() {
 
           {/* Search and Filter Controls */}
           <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center justify-between">
-            {/* Enhanced Search Section */}
+            {/* Enhanced Search Section with Auto-Search */}
             <div className="flex items-center gap-3 flex-1 max-w-lg">
               <div className="relative flex-1">
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                 <Input
                   type="text"
-                  placeholder="Search for products..."
+                  placeholder="Search for products...."
                   value={search}
                   onChange={(e) => {
                     setSearch(e.target.value);
-                    setPage(1);
                   }}
-                  className="pl-12 h-12 bg-gray-50 border-gray-200 focus:bg-white focus:border-blue-300 transition-all duration-200 rounded-xl text-base shadow-sm"
+                  className="pl-12 pr-12 h-12 bg-gray-50 border-gray-200 focus:bg-white focus:border-blue-300 transition-all duration-200 rounded-xl text-base shadow-sm"
                 />
+                {search && (
+                  <Button
+                    onClick={clearSearch}
+                    variant="ghost"
+                    size="sm"
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 h-8 w-8 p-0 hover:bg-gray-100 rounded-full"
+                  >
+                    <X className="h-4 w-4 text-gray-400" />
+                  </Button>
+                )}
+                
+                {/* Search indicator */}
+                {search !== querySearch && search.trim() && (
+                  <div className="absolute -bottom-8 left-0 text-xs text-blue-600 font-medium flex items-center gap-1">
+                    <div className="animate-spin h-3 w-3 border border-blue-600 border-t-transparent rounded-full"></div>
+                    Searching...
+                  </div>
+                )}
               </div>
-              <Button
-                onClick={() => {
-                  setPage(1);
-                  setQuerySearch(search);
-                }}
-                size="lg"
-                className="h-12 px-8 bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 font-semibold"
-              >
-                Search
-              </Button>
             </div>
 
             {/* Enhanced Sort Section */}
@@ -305,6 +330,26 @@ function ProductListing() {
               </DropdownMenu>
             </div>
           </div>
+          
+          {/* Active Search Indicator */}
+          {querySearch && (
+            <div className="mt-6 flex items-center justify-center">
+              <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-2 flex items-center gap-2">
+                <Search className="h-4 w-4 text-blue-600" />
+                <span className="text-blue-800 text-sm font-medium">
+                  Searching for: "{querySearch}"
+                </span>
+                <Button
+                  onClick={clearSearch}
+                  variant="ghost"
+                  size="sm"
+                  className="h-6 w-6 p-0 hover:bg-blue-100 rounded-full ml-2"
+                >
+                  <X className="h-3 w-3 text-blue-600" />
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -466,6 +511,15 @@ function ProductListing() {
               <div className="text-gray-300 text-8xl mb-6">🔍</div>
               <h3 className="text-gray-600 text-2xl font-bold mb-2">No products found</h3>
               <p className="text-gray-500 text-lg">Try adjusting your search terms or filters</p>
+              {querySearch && (
+                <Button
+                  onClick={clearSearch}
+                  variant="outline"
+                  className="mt-4 rounded-xl"
+                >
+                  Clear Search
+                </Button>
+              )}
             </div>
           )}
         </div>
