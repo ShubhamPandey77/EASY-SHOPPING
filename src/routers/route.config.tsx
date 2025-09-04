@@ -7,6 +7,7 @@ import Cart from '../pages/Cart';
 import BuyNow from '../pages/Buy/Buy.page';
 import type { JSX } from 'react';
 import { ROUTE } from '../constant/route.constants';
+import UserInfo from '@/pages/UserInfo';
 
 const router = createBrowserRouter([
   { path:ROUTE.Root,
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
       { path: ROUTE.ProdDetailPath, element: <ProductDetail /> },
       { path: ROUTE.Cart, element: <Cart /> },
       { path: ROUTE.Buy, element: <BuyNow /> },
+      { path: ROUTE.User, element: <UserInfo /> },
     ],
   },
 ]);

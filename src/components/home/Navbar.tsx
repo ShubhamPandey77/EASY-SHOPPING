@@ -110,7 +110,7 @@ function Navbar() {
                   <DropdownMenuLabel className="font-normal p-4">
                     <div className="flex flex-col space-y-1">
                       <p className="text-sm font-semibold leading-none text-gray-900">
-                        My Account
+                        Emilys
                       </p>
                       <p className="text-xs leading-none text-gray-500">
                         {userEmail}
@@ -122,15 +122,10 @@ function Navbar() {
 
                   <DropdownMenuItem
                     className="cursor-pointer hover:bg-gray-50 focus:bg-gray-50 rounded-lg mx-2 my-1"
-                    onClick={() => {
-                      toast("Profile page coming soon!", {
-                        icon: 'ℹ️',
-                        duration: 3000,
-                      });
-                    }}
+                         onClick={()=> navigate(ROUTE.User)}
                   >
                     <User className="mr-3 h-4 w-4 text-gray-500" />
-                    <span className="text-gray-700 font-medium">Account Settings</span>
+                    <span className="text-gray-700 font-medium">Users Details</span>
                   </DropdownMenuItem>
 
                   <DropdownMenuItem
@@ -201,7 +196,9 @@ function Navbar() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+     
     </>
+    
   );
 }
 

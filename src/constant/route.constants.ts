@@ -7,4 +7,5 @@ export const ROUTE = {
   ProdDetailPath: `${Auth}/product-detail/:id`,
   Cart: `${Auth}/cart`,
   Buy: `${Auth}/buy`,
+  User : `${Auth}/user`,
 } as const;

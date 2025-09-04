@@ -1,3 +1,3 @@
-export const limit = 10;
+export const limit = 15;
 
-export const DEFAULT_LIMIT = 10;
+export const DEFAULT_LIMIT = 15;

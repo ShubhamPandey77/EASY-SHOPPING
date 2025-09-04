@@ -58,19 +58,9 @@ export async function fetchProductByLimit(
   const skip = (page - 1) * limit;
 
   const params = search
-    ? {
-        q: search,
-        limit,
-        skip,
-        select: "thumbnail,title,price,stock",
+    ? { q: search,  limit, skip,select: "thumbnail,title,price,stock", 
       }
-    : {
-        limit,
-        skip,
-        select: "thumbnail,title,price,stock",
-        sortBy, 
-        order,
-        
+    : {limit,  skip, select: "thumbnail,title,price,stock",  sortBy,    order, 
       };
 
   const url = search ? API_ENDPOINTS.searching : API_ENDPOINTS.paging;
