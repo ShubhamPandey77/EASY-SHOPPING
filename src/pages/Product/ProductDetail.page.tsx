@@ -106,7 +106,7 @@ function ProductDetail() {
     );
   };
 
-  // Get stock status
+
   const getStockStatus = (stock: number) => {
     if (stock === 0) return { status: "Out of Stock", color: "bg-red-100 text-red-700", icon: AlertCircle };
     if (stock < 10) return { status: "Low Stock", color: "bg-orange-100 text-orange-700", icon: Clock };
@@ -114,12 +114,12 @@ function ProductDetail() {
     return { status: "In Stock", color: "bg-green-100 text-green-700", icon: CheckCircle };
   };
 
-  // Loading skeleton
+ 
   const ProductSkeleton = () => (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
       <Navbar />
       <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Breadcrumb skeleton */}
+     
         <div className="flex items-center gap-2 mb-8">
           <Skeleton className="h-6 w-16" />
           <Skeleton className="h-6 w-6" />
@@ -129,7 +129,7 @@ function ProductDetail() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          {/* Image skeleton */}
+      
           <div className="space-y-4">
             <Skeleton className="w-full aspect-square rounded-2xl" />
             <div className="grid grid-cols-4 gap-4">
@@ -139,7 +139,7 @@ function ProductDetail() {
             </div>
           </div>
 
-          {/* Product info skeleton */}
+       
           <div className="space-y-6">
             <Skeleton className="h-10 w-3/4" />
             <div className="flex items-center gap-4">
@@ -166,7 +166,7 @@ function ProductDetail() {
           </div>
         </div>
 
-        {/* Additional sections skeleton */}
+      
         <div className="mt-16 space-y-8">
           <Skeleton className="h-80 w-full rounded-2xl" />
           <Skeleton className="h-60 w-full rounded-2xl" />
@@ -212,7 +212,7 @@ function ProductDetail() {
   const stockStatus = getStockStatus(data.stock || 0);
   const StockIcon = stockStatus.icon;
   
-  // Mock additional images (since DummyJSON typically only has thumbnail and images array)
+
   const productImages = data.images || [data.thumbnail, data.thumbnail, data.thumbnail, data.thumbnail];
 
   return (
@@ -220,7 +220,7 @@ function ProductDetail() {
       <Navbar />
       
       <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Breadcrumb */}
+        
         <div className="flex items-center gap-2 text-sm text-gray-600 mb-8">
           <button 
             onClick={() => navigate('/')} 
@@ -228,14 +228,8 @@ function ProductDetail() {
           >
             Home
           </button>
-          <span>›</span>
-          <button 
-            onClick={() => navigate('/products')} 
-            className="hover:text-blue-600 transition-colors"
-          >
-            Products
-          </button>
-          <span>›</span>
+          <span> ›
+          </span>
           <span className="text-gray-900 font-medium">{data.category}</span>
         </div>
 
